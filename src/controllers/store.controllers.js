@@ -1,10 +1,14 @@
-import { db } from '../index.js';
+import { db } from '../lib/db.js';
 import { store } from '../models/store.js';
 import { eq } from 'drizzle-orm';
 
 export const getAllStore = async (req, res) => {
   try {
-    const getAllStore = await db.select().from(store);
+    const getAllStore = await db.query.store.findMany({
+      with: {
+        products: true,
+      },
+    });
     res.json(getAllStore);
   } catch (error) {
     return res.status(500).json({
@@ -15,9 +19,13 @@ export const getAllStore = async (req, res) => {
 };
 
 export const getFoundStores = async (req, res) => {
-  const { id } = req.params;
   try {
-    const storesFound = await db.select().from(store).where(eq(store.id, id));
+    const storesFound = await db.query.store.findFirst({
+      where: (store, { eq }) => eq(store.id, req.params.id),
+      with: {
+        products: true,
+      },
+    });
     res.json(storesFound);
   } catch (error) {
     return res.status(500).json({
@@ -28,16 +36,8 @@ export const getFoundStores = async (req, res) => {
 };
 
 export const postStore = async (req, res) => {
-  const { nombre, direccion, responsable } = req.body;
   try {
-    const newStore = await db
-      .insert(store)
-      .values({
-        nombre,
-        direccion,
-        responsable,
-      })
-      .returning();
+    const newStore = await db.insert(store).values(req.body).returning();
     res.json(newStore);
   } catch (error) {
     return res.status(500).json({
@@ -48,14 +48,13 @@ export const postStore = async (req, res) => {
 };
 
 export const updateStore = async (req, res) => {
-  const { id } = req.params;
-  const { nombre, direccion, responsable } = req.body;
   try {
     const updateStore = await db
       .update(store)
-      .set({ nombre, direccion, responsable, updated_at: new Date() })
-      .where(eq(store.id, id))
+      .set({ updatedAt: new Date() }, req.body)
+      .where(eq(store.id, req.params.id))
       .returning();
+
     res.json(updateStore);
   } catch (error) {
     return res.status(500).json({
@@ -67,11 +66,11 @@ export const updateStore = async (req, res) => {
 
 export const deleteStore = async (req, res) => {
   try {
-    const { id } = req.params;
     const storeDelete = await db
       .delete(store)
-      .where(eq(store.id, id))
+      .where(eq(store.id, req.params.id))
       .returning();
+
     res.json(storeDelete);
   } catch (error) {
     return res.status(500).json({

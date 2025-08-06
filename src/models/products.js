@@ -1,5 +1,6 @@
 import { decimal, pgTable, uuid, varchar, integer, timestamp} from 'drizzle-orm/pg-core';
 import { store } from './store.js';
+import { relations } from 'drizzle-orm';
 
 export const products = pgTable('products', {
   id: uuid().defaultRandom().primaryKey(),
@@ -15,3 +16,10 @@ export const products = pgTable('products', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+export const productRelations = relations(products, ({ one }) => ({
+  store: one(store, {
+    fields: [products.storeId],
+    references: [store.id],
+  }),
+}));
