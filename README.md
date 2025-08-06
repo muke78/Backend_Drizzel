@@ -1,11 +1,11 @@
-# 🏪 Backend Drizzel - API REST
+# 🏪 Backend Drizzle - API REST
 
 API REST para gestión de tiendas y productos utilizando Express.js, PostgreSQL y Drizzle ORM.
 
 ## 📁 Estructura del Proyecto
 
 ```
-backend-drizzel/
+backend-drizzle/
 ├── src/
 │   ├── controllers/      # Controladores de la API
 │   │   ├── products.controllers.js
@@ -39,8 +39,8 @@ backend-drizzel/
 
 1. Clonar el repositorio:
 ```bash
-git clone https://github.com/tu-usuario/backend-drizzel.git
-cd backend-drizzel
+git clone https://github.com/tu-usuario/Backend_Drizzle.git
+cd backend-drizzle
 ```
 
 2. Instalar dependencias con pnpm:
