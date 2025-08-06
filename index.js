@@ -1,10 +1,13 @@
 import express from 'express';
 import morgan from 'morgan';
+import storeRoutes from './src/routes/store.routes.js'
 
 const app = express();
 
 app.use(express.json());
 app.use(morgan('dev'));
+
+app.use('/store', storeRoutes)
 
 // Use environment variable for port, with 3000 as fallback
 const port = process.env.PORT || 3000;

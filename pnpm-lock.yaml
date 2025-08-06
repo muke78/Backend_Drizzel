@@ -13,7 +13,7 @@ importers:
         version: 17.2.1
       drizzle-orm:
         specifier: ^0.44.4
-        version: 0.44.4(pg@8.16.3)
+        version: 0.44.4(@types/pg@8.15.5)(pg@8.16.3)
       express:
         specifier: ^5.1.0
         version: 5.1.0
@@ -27,9 +27,15 @@ importers:
         specifier: ^8.16.3
         version: 8.16.3
     devDependencies:
+      '@types/pg':
+        specifier: ^8.15.5
+        version: 8.15.5
       drizzle-kit:
         specifier: ^0.31.4
         version: 0.31.4
+      tsx:
+        specifier: ^4.20.3
+        version: 4.20.3
 
 packages:
 
@@ -331,6 +337,12 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@types/node@24.2.0':
+    resolution: {integrity: sha512-3xyG3pMCq3oYCNg7/ZP+E1ooTaGB4cG8JWRsqqOYQdbWNY4zbaV0Ennrd7stjiJEFZCaybcIgpTjJWHRfBSIDw==}
+
+  '@types/pg@8.15.5':
+    resolution: {integrity: sha512-LF7lF6zWEKxuT3/OR8wAZGzkg4ENGXFNyiV/JeOt9z5B+0ZVwbql9McqX5c/WStFq1GaGso7H1AzP/qSzmlCKQ==}
 
   accepts@2.0.0:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
@@ -899,12 +911,20 @@ packages:
     resolution: {integrity: sha512-r0eojU4bI8MnHr8c5bNo7lJDdI2qXlWWJk6a9EAFG7vbhTjElYhBVS3/miuE0uOuoLdb8Mc/rVfsmm6eo5o9GA==}
     hasBin: true
 
+  tsx@4.20.3:
+    resolution: {integrity: sha512-qjbnuR9Tr+FJOMBqJCW5ehvIo/buZq7vH7qD7JziU98h6l3qGy0a/yPFjwO+y0/T7GFpNgNAvEcPPVfyT8rrPQ==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+
   type-is@2.0.1:
     resolution: {integrity: sha512-OZs6gsjF4vMp32qrCbiVSkrFmXtG/AZhY3t0iAMrMBiAZyV9oALtXO8hsrHbMXF9x6L3grlFuwW2oAz7cav+Gw==}
     engines: {node: '>= 0.6'}
 
   undefsafe@2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
+
+  undici-types@7.10.0:
+    resolution: {integrity: sha512-t5Fy/nfn+14LuOc2KNYg75vZqClpAiqscVvMygNnlsHBFpSXdJaYtXMcdNLpl/Qvc3P2cB3s6lOV51nqsFq4ag==}
 
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
@@ -1079,6 +1099,16 @@ snapshots:
   '@esbuild/win32-x64@0.25.8':
     optional: true
 
+  '@types/node@24.2.0':
+    dependencies:
+      undici-types: 7.10.0
+
+  '@types/pg@8.15.5':
+    dependencies:
+      '@types/node': 24.2.0
+      pg-protocol: 1.10.3
+      pg-types: 2.2.0
+
   accepts@2.0.0:
     dependencies:
       mime-types: 3.0.1
@@ -1181,8 +1211,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.44.4(pg@8.16.3):
+  drizzle-orm@0.44.4(@types/pg@8.15.5)(pg@8.16.3):
     optionalDependencies:
+      '@types/pg': 8.15.5
       pg: 8.16.3
 
   dunder-proto@1.0.1:
@@ -1634,6 +1665,13 @@ snapshots:
 
   touch@3.1.1: {}
 
+  tsx@4.20.3:
+    dependencies:
+      esbuild: 0.25.8
+      get-tsconfig: 4.10.1
+    optionalDependencies:
+      fsevents: 2.3.3
+
   type-is@2.0.1:
     dependencies:
       content-type: 1.0.5
@@ -1641,6 +1679,8 @@ snapshots:
       mime-types: 3.0.1
 
   undefsafe@2.0.5: {}
+
+  undici-types@7.10.0: {}
 
   unpipe@1.0.0: {}
 

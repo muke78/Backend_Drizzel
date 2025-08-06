@@ -1,7 +1,7 @@
 import { decimal, pgTable, uuid, varchar, integer, timestamp} from 'drizzle-orm/pg-core';
-import { storeTable } from './store.js';
+import { store } from './store.js';
 
-export const productsTable = pgTable('products', {
+export const products = pgTable('products', {
   id: uuid().defaultRandom().primaryKey(),
   nombre: varchar('nombre', { length: 100 }).notNull(),
   descripcion: varchar('descripcion'),
@@ -11,7 +11,7 @@ export const productsTable = pgTable('products', {
   stock: integer('stock').default(0).notNull(),
   storeId: uuid('storeId')
     .notNull()
-    .references(() => storeTable.id, { onDelete: 'cascade' }),
+    .references(() => store.id, { onDelete: 'cascade' }),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
